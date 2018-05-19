@@ -1,0 +1,28 @@
+{
+  "name": "me/mywebsite",
+  "description": "my personal website",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "GACHTOU NourEddine",
+      "email": "the.za3im@gmail.com"
+    }
+  ],
+  "autoload" : {
+    "psr-4" : {
+      "App\\" : "App"
+    }
+  },
+  "require" : {
+    "nette/database" : "*"
+  },
+  "require-dev": {
+    "filp/whoops" : "*",
+    "squizlabs/php_codesniffer": "^2.2 || ^3.0.2",
+    "wimg/php-compatibility": "*",
+    "phpmd/phpmd" : "@stable"
+
+  }
+
+}
