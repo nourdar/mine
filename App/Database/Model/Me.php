@@ -9,23 +9,6 @@ class Me Extends Database {
 
     private $table = "me";
 
-    public $all;
-    public $name;
-    public $surname;
-    public $birthday;
-    public $address;
-    public $phone1;
-    public $phone2;
-    public $email;
-    public $job;
-    public $description;
-    public $about;
-    public $parm;
-
-    public function __construct()
-    {
-        
-    }
 
     public function getAll(){
         $info = $this->db->query("select * from ?name ",$this->parm,$this->table)->fetch();
@@ -34,7 +17,6 @@ class Me Extends Database {
 
     public function name() {
         $info = $this->db->query("select name from ?name ",$this->table)->fetch();
-
         return $info[0];
     }
 
@@ -80,6 +62,12 @@ class Me Extends Database {
         return $info[0];
     }
 
+    public function image() {
+        $info = $this->db->query("select image from ?name ",$this->table)->fetch();
+        $this->image = $info[0];
+        return $info[0];
+    }
+
     public function description() {
         $info = $this->db->query("select description from ?name ",$this->table)->fetch();
         $this->description = $info[0];
@@ -90,6 +78,10 @@ class Me Extends Database {
         $info = $this->db->query("select about_me from ?name ",$this->table)->fetch();
         $this->about = $info[0];
         return $info[0];
+    }
+
+    public function update($array){
+       return $this->db->query("UPDATE ?name SET ",$this->table,$array,"WHERE id = 1 ");
     }
 
 }

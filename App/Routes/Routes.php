@@ -1,11 +1,4 @@
 <?php
-namespace App\Routes;
+include "Admin/Admin.php";
 
 
-class Routes
-{
-    public function __construct()
-    {
-
-    }
-}

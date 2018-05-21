@@ -16,9 +16,34 @@
         }
     }
 
-    function view ($file) {
-        if(file_exists("Views/".$file)) {
-            include "Views/".$file;
+
+
+    function view ($file,$viewParm = null) {
+        if(file_exists("Views/".$file.".php")) {
+            if(is_array($viewParm)){
+                extract($viewParm);
+            }
+            include "Views/".$file.".php";
+        } elseif(file_exists("Views/".$file.".html")) {
+            if(is_array($viewParm)){
+                extract($viewParm);
+            }
+            include "Views/".$file.".html";
         }
-        else die('file'.$file.'does not exists');
+        else die('Your View Page <span style="color:red">'.$file.'</span> does not exists');
+    }
+
+    function p($array){
+        echo "<pre>";
+        print_r($array);
+        echo "</pre>";
+    }
+
+    function image($file){
+
+         if(file_exists("assets/images/".$file)) {
+             echo 'assets/images/'.$file;
+            } else {
+             echo 'assets/images/oops.png';
+}
     }
