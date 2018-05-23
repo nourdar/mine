@@ -20,25 +20,32 @@ class Routes {
      * @var string
      * controller name
      */
-    public static $controller ;
+
+    private static $requset_method;
+    /**
+     * @var array
+     */
+    public static $data = array();
 
     /**
      * @var string
      */
-    public static $controllersPath = "Controllers/";
+    private static $controller ;
 
     /**
      * @var string
      */
-    public static $controllerNamespace = "\App\Controllers\\";
+    private static $controllersPath = "Controllers/";
+
+    /**
+     * @var string
+     */
+    private static $controllerNamespace = "\App\Controllers\\";
 
     /**
      * Routes constructor.
      */
-    public function __construct()
-    {
-        self::$uri = $_GET['url'];
-    }
+
 
     /**
      * @throws \Exception
@@ -46,14 +53,16 @@ class Routes {
      */
     public static function run()
     {
+
+
         if(self::checkUrl() ){
 
-            self::$controller = self::$url[$_GET['url']]['CONTROLLER'];
-
-             self::checkController();
-
+                self::$controller = self::$url[self::$uri]['CONTROLLER'];
+                if(!self::$controller == NULL) {
+                    self::checkController();
+                }
         } else {
-            throw new \Exception("can't run ROUTE class check run() method");
+           throw new \Exception('URL INVALID');
         }
 
     }
@@ -62,8 +71,15 @@ class Routes {
      * @param $route
      * @param $controllers
      */
-    public  static function get($route,$controllers) {
+    public  static function get($route,$controllers)
+    {
+
        return  self::routes($route,$controllers,"GET");
+    }
+
+    public static function post($route,$controllers)
+    {
+        return  self::routes($route,$controllers,"POST");
     }
 
     /**
@@ -73,6 +89,11 @@ class Routes {
      */
     public static function routes ($routes,$controllers,$method)
     {
+        if( $method === "POST" ):
+            self::$requset_method = "POST";
+            self::$data = $_POST;
+            endif;
+
         self::$url[$routes] = array(
             "CONTROLLER" => $controllers,
             "METHOD"     => $method
@@ -84,15 +105,13 @@ class Routes {
      * @return bool
      */
     public static function checkUrl(){
-
+        self::$uri = $_GET['url'];
         if(is_array(self::$url)){
             if(isset(self::$url[$_GET['url']])){
                 return true;
-            } else {
-               return false;
             }
         }
-        return false;
+
     }
 
 
@@ -100,7 +119,12 @@ class Routes {
      * @return mixed
      * @throws \Exception
      */
-    protected static function checkController(){
+    protected static function checkController()
+    {
+        if(is_callable(self::$controller)){
+            true;
+        } else {
+
 
         $a = explode('@',self::$controller);
 
@@ -111,19 +135,23 @@ class Routes {
                 $aa = self::$controllerNamespace.$a[0]."Controller";
                 $c = new $aa;
                 $m = $a[1];
-               return $c->$m();
+                if(self::$requset_method === "POST"):
+                    $request = self::$data;
+                    return $c->$m($request);
+                    endif;
+               var_dump( $c->$m());
 
             } else {
 
-                throw new \Exception("Method ".$a[1]." Not Found in " .$a[0]." Controller");
+            throw new \Exception("Method ".$a[1]." Not Found in " .$a[0]." Controller");
 
             }
         } else {
 
-            throw new \Exception("Controller ".$a[0]." Not Found ");
+          throw new \Exception("Controller ".$a[0]." Not Found ");
         }
     }
 
-
+    }
 
 }

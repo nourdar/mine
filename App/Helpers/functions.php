@@ -23,21 +23,23 @@
             if(is_array($viewParm)){
                 extract($viewParm);
             }
-            include "Views/".$file.".php";
+            require "Views/".$file.".php";
         } elseif(file_exists("Views/".$file.".html")) {
             if(is_array($viewParm)){
                 extract($viewParm);
             }
-            include "Views/".$file.".html";
+            require "Views/".$file.".html";
         }
-        else die('Your View Page <span style="color:red">'.$file.'</span> does not exists');
+
     }
+
 
     function p($array){
         echo "<pre>";
         print_r($array);
         echo "</pre>";
     }
+
 
     function image($file){
 
@@ -47,3 +49,4 @@
              echo 'assets/images/oops.png';
 }
     }
+

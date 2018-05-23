@@ -1,12 +1,17 @@
+
 <?php
 
-include "navbar.php";
+view('header');
+view('Admin/navbar',['me'=>$me]);
 
-	if(isset($Adminpage)){
-		include $Adminpage;
+	if(isset($adminPage)){
+		include $adminPage;
 	} else {
 		echo "<h1>Welcome To Admin Panel No Page To Open</h1>";
 	}
 
-include "footer.php";
+
+
+
+view('Admin/footer');
 

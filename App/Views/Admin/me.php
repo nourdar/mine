@@ -1,11 +1,8 @@
 <h1>Edit My Personal Informations</h1>
-<?php if(isset($_SESSION['op_message'])){
-    echo $_SESSION['op_message'];
-    unset($_SESSION['op_message']);
-} ?>
+<?php ses('s_message'); ?>
 
 
-<form class="ui form" method="post" action="index.php?admin=meUpdate">
+<form class="ui form" method="post" action="index.php?url=admin/meUpdate">
 
     <div class="field">
         <label>Name</label>
@@ -23,7 +20,7 @@
         <label>Address</label>
         <div class="fields">
             <div class="twelve wide field">
-                <input value=<?php echo $me->address(); ?> name="address">
+                <input value="<?php echo $me->address(); ?>" name="address">
             </div>
         </div>
     </div>

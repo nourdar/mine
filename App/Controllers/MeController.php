@@ -10,7 +10,7 @@ class MeController extends Controller {
         return $meDb;
     }
 
-    public function update($array){
+    public function post($array){
         $meDb = new Me;
 
         if(!empty($_POST['image'])){
@@ -32,14 +32,38 @@ class MeController extends Controller {
                     'about_me'      => $about
             ];
 
+            add_session($array);
 
 
-        $meDb->update($array);
-    return true;
+
+        if($meDb->update($array)){
+            sr('t','my informations has been updated');
+            header('LOCATION: index.php?url=admin/me');
+        } else {
+            sr('f','Operation faild !! ');
+            header('LOCATION: index.php?url=admin/me');
         }
 
+
+        }
+
+
+
+
+
         public function sayHello(){
-        echo "hello";
+
+            $meDb = new Me;
+
+
+        sr('t','show message from say hello');
+            view('Admin/index',['me'=>$meDb]);
+        }
+
+        public function show()
+        {
+            $meDb = new Me;
+            view('Admin/index',['me'=>$meDb,"adminPage"=>"me.php"]);
         }
 
 }
