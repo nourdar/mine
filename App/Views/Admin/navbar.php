@@ -36,7 +36,7 @@
             <i class="smile icon"></i> Contact Me
         </a>
 clear
-        
+
     </div>
     <div class="pusher">
         <div class="ui container mainContainer">

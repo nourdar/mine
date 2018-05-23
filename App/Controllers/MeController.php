@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 use App\Database\Model\Me;
 
-class MeController {
+class MeController extends Controller {
 
     public function me(){
         $meDb = new Me;
@@ -36,6 +36,10 @@ class MeController {
 
         $meDb->update($array);
     return true;
+        }
+
+        public function sayHello(){
+        echo "hello";
         }
 
 }
