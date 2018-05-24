@@ -28,6 +28,10 @@ class ComposerStaticInited70b5c7f9bb3f2b9ed30d99dd79dc70
             'PHPCompatibility\\' => 17,
             'PDepend\\' => 8,
         ),
+        'C' => 
+        array (
+            'Core\\' => 5,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -66,6 +70,10 @@ class ComposerStaticInited70b5c7f9bb3f2b9ed30d99dd79dc70
         'PDepend\\' => 
         array (
             0 => __DIR__ . '/..' . '/pdepend/pdepend/src/main/php/PDepend',
+        ),
+        'Core\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Core',
         ),
         'App\\' => 
         array (

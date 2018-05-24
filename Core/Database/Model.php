@@ -1,11 +1,11 @@
 <?php
-namespace App\Database;
+namespace Core\Database;
 
 use Nette\Database\Connection;
 use Nette\Database\Context;
 use Nette;
 
-class Database
+class Model
 {
     public $db;
 

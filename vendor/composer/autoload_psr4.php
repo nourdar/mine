@@ -14,5 +14,6 @@ return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'PHPCompatibility\\' => array($vendorDir . '/wimg/php-compatibility/PHPCompatibility'),
     'PDepend\\' => array($vendorDir . '/pdepend/pdepend/src/main/php/PDepend'),
+    'Core\\' => array($baseDir . '/Core'),
     'App\\' => array($baseDir . '/App'),
 );

@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers;
+namespace Core\Controllers;
 
 use App\Database\Model\Me;
 

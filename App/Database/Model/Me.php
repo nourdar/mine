@@ -1,11 +1,11 @@
 <?php
 namespace App\Database\Model;
 
-use App\Database\Database;
+use Core\Database\Model;
 
 
 
-class Me Extends Database {
+class Me Extends Model {
 
     private $table = "me";
 
