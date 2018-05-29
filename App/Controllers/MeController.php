@@ -1,17 +1,24 @@
 <?php
-namespace Core\Controllers;
+namespace App\Controllers;
+
+use Core\Controllers\Controller;
 
 use App\Database\Model\Me;
 
 class MeController extends Controller {
 
-    public function me(){
-        $meDb = new Me;
-        return $meDb;
+    public $me;
+
+
+    public function __construct()
+    {
+        $database = new Me();
+        $this->me = $database;
+
     }
 
     public function post($array){
-        $meDb = new Me;
+
 
         if(!empty($_POST['image'])){
             $array['image'] = $_POST['image'];
@@ -36,7 +43,7 @@ class MeController extends Controller {
 
 
 
-        if($meDb->update($array)){
+        if($this->DB->update($array)){
             sr('t','my informations has been updated');
             header('LOCATION: index.php?url=admin/me');
         } else {
@@ -53,17 +60,16 @@ class MeController extends Controller {
 
         public function sayHello(){
 
-            $meDb = new Me;
-
-
-        sr('t','show message from say hello');
-            view('Admin/index',['me'=>$meDb]);
+            sr('t','show message from say hello');
+            view('Admin/index',['me'=>$this->me]);
         }
 
-        public function show()
-        {
-            $meDb = new Me;
-            view('Admin/index',['me'=>$meDb,"adminPage"=>"me.php"]);
-        }
+    /**
+     * @return Me
+     */
+    public function show()
+    {
+        return view('Admin/index',['me'=>$this->me,'adminrPage'=>"me.php"]);
+    }
 
 }

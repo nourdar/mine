@@ -1,16 +1,25 @@
 <?php
-
+    /**
+     * @param $file
+     */
     function css ($file) {
-        if(file_exists("assets/css/".$file.".css")) {
-            echo "<link href='assets/css/".$file.".css' rel='stylesheet'/>";
+        global $cssPath;
+
+        if(file_exists($cssPath.$file.".css")) {
+            echo "<link href='".$cssPath.$file.".css' rel='stylesheet'/>";
+
         } else {
              echo "there is no css file " . $file.".css";
         }
     }
 
+    /**
+     * @param $file
+     */
     function js ($file) {
-        if(file_exists("assets/js/".$file.".js")) {
-            echo "<script src='assets/js/".$file.".js' /></script>";
+        global $jsPath;
+        if(file_exists($jsPath.$file.".js")) {
+            echo "<script src='".$jsPath.$file.".js' /></script>";
         } else {
             echo "there is no js file " . $file.".js";
         }
@@ -18,35 +27,28 @@
 
 
 
-    function view ($file,$viewParm = null) {
-        if(file_exists("Views/".$file.".php")) {
-            if(is_array($viewParm)){
-                extract($viewParm);
-            }
-            require "Views/".$file.".php";
-        } elseif(file_exists("Views/".$file.".html")) {
-            if(is_array($viewParm)){
-                extract($viewParm);
-            }
-            require "Views/".$file.".html";
-        }
-
-    }
-
-
+    /**
+     * @param $array
+     */
     function p($array){
         echo "<pre>";
         print_r($array);
         echo "</pre>";
     }
+    function pvd($array){
+        var_dump(p($array));
+        die();
+    }
 
-
+    /**
+     * @param $file
+     */
     function image($file){
-
-         if(file_exists("assets/images/".$file)) {
-             echo 'assets/images/'.$file;
+        global $imagesPath;
+         if(file_exists($imagesPath.$file)) {
+             echo $imagesPath.$file;
             } else {
-             echo 'assets/images/oops.png';
+             echo $imagesPath.'oops.png';
 }
     }
 

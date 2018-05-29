@@ -5,10 +5,16 @@ use Core\Database\Model;
 
 
 
-class Me Extends Model {
+
+class Me extends Model {
+
 
     private $table = "me";
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function getAll(){
         $info = $this->db->query("select * from ?name ",$this->parm,$this->table)->fetch();
@@ -20,7 +26,7 @@ class Me Extends Model {
         return $info[0];
     }
 
-    public function surname() {
+    public function username() {
         $info = $this->db->query("select surname from ?name ",$this->table)->fetch();
         $this->surname = $info[0];
         return $info[0];

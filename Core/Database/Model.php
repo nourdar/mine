@@ -1,17 +1,34 @@
 <?php
 namespace Core\Database;
-
 use Nette\Database\Connection;
-use Nette\Database\Context;
-use Nette;
-
+use Core\Database\DbSettings as DB;
 class Model
 {
-    public $db;
+    public $dtb;
+    private $select = [];
+    private $table = [];
+    private $where = [];
 
-    public function __construct () {
-        $con = new Connection("mysql:host=localhost;dbname=me", "root", "");
-        return $this->db = $con;
 
+    public function __construct ()
+    {
+       $dtb = new DB();
+       $this->connect($dtb->server, $dtb->db_name, $dtb->username,$dtb->password);
+
+    }
+
+    private function connect($server,$dtbname,$user,$password)
+
+    {
+        $dsn = "mysql:host=".$server.";dbname=".$dtbname;
+        $dtb = new Connection($dsn,$user,$password);
+        $this->dtb = $dtb;
+        return $this;
+    }
+
+    public function select(){
+        $args = func_get_args();
+        $this->select = $args;
+        return $this;
     }
 }
