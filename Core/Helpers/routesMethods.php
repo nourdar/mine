@@ -1,12 +1,19 @@
 <?php
-use Core\Routes\Route;
+use Core\Factory;
 
-    function get($route,$controller)
-    {
-        return Route::get($route,$controller);
-    }
+$routing = Factory::getRoute();
 
-    function post($route,$controller)
-    {
-        return Route::post($route,$controller);
-    }
+
+function get($route, $controller)
+{
+    global $routing;
+    return $routing->get($route, $controller);
+}
+
+function post($route, $controller)
+{
+    global $routing;
+    return $routing->post($route, $controller);
+}
+
+

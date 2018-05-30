@@ -18,13 +18,8 @@ $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 
 
-    include '../Routes/web.php';
-
-    Route::run();
+include '../Routes/web.php';
 
 
 
-
-
-
-
+$routing->run();
