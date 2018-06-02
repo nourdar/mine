@@ -1,11 +1,14 @@
 <?php
 namespace Core;
 
+use \Core\Config;
 use \Core\Database\DbSettings;
 use \Core\Database\Model;
+use \Jenssegers\Blade\Blade;
 
 class Factory
 {
+    private static $config;
     private static $route;
     private static $dtb;
     private static $isDtb = false;
@@ -32,11 +35,25 @@ class Factory
         return self::$dtb;
     }
 
+    public static function getConfig()
+    {
+        $config   = new Config();
+        return self::$config = $config;
+    }
+
     public static function runFlipWhoops()
     {
         $whoops = new \Whoops\Run;
         $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
         $whoops->register();
+    }
+
+    public static function getView()
+    {
+        $config = self::getConfig();
+        $blade = new Blade($config->viewsPath, $config->cachePath);
+
+        return $blade;
     }
 
 

@@ -2,7 +2,7 @@
     /**
      * @param $file
      */
-function css ($file)
+function cssFile(string $file)
 {
     global $cssPath;
 
@@ -17,7 +17,8 @@ function css ($file)
     /**
      * @param $file
      */
-function js ($file) {
+function jsFile(string $file)
+{
         global $jsPath;
     if (file_exists($jsPath.$file.".js")) {
         echo "<script src='".$jsPath.$file.".js' /></script>";
@@ -49,7 +50,7 @@ function pvd($array)
 /**
  * @param $file
  */
-function image($file)
+function image(string $file)
 {
         global $imagesPath;
     if (file_exists($imagesPath. $file)) {
@@ -59,12 +60,12 @@ function image($file)
     }
 }
 
-function url($url)
+function url(string $url)
 {
     $mode = "test";
 
     if ($mode === "test") {
-        echo "index.php?url=".$url;
+        echo "index.blade.php?url=".$url;
     } else {
         echo $url;
     }

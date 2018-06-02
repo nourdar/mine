@@ -2,3 +2,20 @@
     padding-top:20px;
     padding-bottom:20px;
 }
+
+.input-file {
+    opacity: 0;
+}
+.dropzone {
+    border: none ;
+    border-radius: 20px;
+    color: #902f2f;
+    background-color: #f2f2f2;
+    margin-bottom: 20px;
+}
+#uploadMyImage {
+    width: 400px;
+    height: 400px;
+    margin: auto;
+
+}

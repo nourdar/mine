@@ -12,4 +12,10 @@ class Controller
         return $this->variables = $variables;
     }
 
+
+    public function view()
+    {
+
+    }
+
 }

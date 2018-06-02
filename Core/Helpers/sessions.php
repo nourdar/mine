@@ -1,81 +1,77 @@
 <?php
 
+$mySession = $_SESSION;
 
+function add_session($array)
+{
+    global $mySession;
+    foreach ($array as $key => $val) {
+        $mySession['old_'.$key] = $val;
+    }
+    return true;
+}
 
-    function add_session($array)
-    {
-        foreach($array as $key => $val )
-        {
-            $_SESSION['old_'.$key] = $val;
-        }
+function old($value, $modelVariable = null)
+{
+    global $mySession;
+    if (isset($mySession['old_'.$value])) {
+        echo $mySession['old_'.$value];
+    } else {
+        echo $modelVariable->giveMe($value);
+    }
+}
+
+function ses($name)
+{
+    global $mySession;
+    if (isset($mySession[$name])) {
+        echo $mySession[$name];
     }
 
-    function old($val)
-    {
-        if(isset($_SESSION['old_'.$val])){
-
-            echo $_SESSION['old_'.$val];
-
+    if (isset($mySession['FLASH']['KEY'])) {
+        if ($mySession['FLASH']['KEY'] == $name) {
+            unset($mySession[$name]);
         }
     }
+}
 
-    function ses($name)
-    {
-        if(isset($_SESSION[$name])) {
-            echo $_SESSION[$name];
-        }
-
-        if(isset($_SESSION['FLASH']['KEY'])){
-            if($_SESSION['FLASH']['KEY'] == $name){
-                unset($_SESSION[$name]);
-            }
-
-        }
-    }
-
-    function s_flash($key = null ,$val = null ,$array = null)
-    {
-        if(is_array($array)){
-            foreach ($array as $key=>$val)
-            {
-                $_SESSION[$key] = $val;
-                $_SESSION["FLASH"] = array(
-                    "KEY" => $key,
-                    "FLASH_TIME" => 1
-                );
-            }
-
-        }
-        if(!empty($key) && !empty($val)) {
-            $_SESSION[$key] = $val;
-            $_SESSION["FLASH"] = array(
+function s_flash(string $key = null, string $val = null, array $array = null)
+{
+    global $mySession;
+    if (is_array($array)) {
+        foreach ($array as $key => $val) {
+            $mySession[$key] = $val;
+            $mySession["FLASH"] = array(
                 "KEY" => $key,
                 "FLASH_TIME" => 1
             );
         }
-
     }
 
+    if (!empty($key) && !empty($val)) {
+        $mySession[$key] = $val;
+        $mySession["FLASH"] = array(
+            "KEY" => $key,
+            "FLASH_TIME" => 1
+        );
+    }
+}
 
-        function sr($type,$message)
-        {
-            if($type == "f")
-            {
-                $s =  '  <div class="ui message error">
-                        <div class="header"> oops there is something wrong </div>
-                        <div class="message">'.$message.'</div>
-                        </div>';
-                s_flash('s_message',$s);
-            }
+function rMsg(string $type, string $message)
+{
+    if ($type == "f") {
+        $msg = '  <div class="ui message error">
+                <div class="header"> oops there is something wrong </div>
+                <div class="message">' . $message . '</div>
+                </div>';
+        s_flash('s_message', $msg);
+    }
 
-            if($type == "t")
-            {
-                $s =  '  <div class="ui message success">
-                        <div class="header"> operation has been finished with success </div>
-                        <div class="message">'.$message.'</div>
-                        </div>';
-                s_flash('s_message',$s);
-            }
-        }
-
-
+    if ($type == "t") {
+        $msg =  '  <div class="ui message success">
+                <div class="header"> operation has been finished with success </div>
+                <div class="message">'.$message.'</div>
+                </div>';
+        s_flash('s_message', $msg);
+    }
+}

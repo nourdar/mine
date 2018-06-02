@@ -1,9 +1,9 @@
 <?php
 namespace App\Controllers;
 
-use Core\Controllers\Controller;
-
-use App\Database\Model\Me;
+use \Core\Controllers\Controller;
+use \App\Database\Model\Me;
+use  upload;
 
 class MeController extends Controller {
 
@@ -14,12 +14,23 @@ class MeController extends Controller {
     {
         $database = new Me();
         $this->me = $database;
+
     }
 
     public function sayHello()
     {
-        sr('t', 'show message from say hello');
-        view('Admin/index', ['me'=>$this->me]);
+        rMsg('t', 'show message from say hello');
+        view('Admin.index', ['me'=>$this->me]);
+    }
+
+    public function editPage()
+    {
+        rMsg('t', 'show message from say hello');
+
+         return view('Admin.me',[
+             'a' => "hello test variable sending",
+             'me'=> $this->me
+         ]);
     }
 
     public function show()
@@ -31,5 +42,21 @@ class MeController extends Controller {
     {
         pvd($var);
     }
+    public function uploadMyImage()
+    {
+        $file = $_FILES['file'];
+        $uploader = new upload($file);
+        $uploader->process('Store/Images');
+        if ($uploader->processed) {
+            $array = ["image"=>$uploader->file_dst_name];
+            $result = $this->me->update($array);
+            if ($result) {
+               echo $uploader->file_dst_name;
+            } else {
+                return false;
+            }
+        }
+        }
+
 
 }

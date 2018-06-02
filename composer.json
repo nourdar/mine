@@ -1,4 +1,10 @@
 {
+  "repositories" : [
+    {
+    "url" : "https://packagist.org",
+    "type": "composer"
+    }
+  ],
   "name": "me/mywebsite",
   "description": "my personal website",
   "minimum-stability": "stable",
@@ -16,14 +22,18 @@
     }
   },
   "require" : {
-    "nette/database" : "*"
+    "nette/database" : "*",
+    "jenssegers/blade" : "1.0.0",
+    "vich/uploader-bundle" : "1.8.3",
+    "verot/class.upload.php": "dev-master"
   },
   "require-dev": {
     "filp/whoops" : "*",
     "squizlabs/php_codesniffer": "^2.2 || ^3.0.2",
     "wimg/php-compatibility": "*",
-    "phpmd/phpmd" : "@stable"
-
+    "phpmd/phpmd" : "@stable",
+    "phpunit/phpunit": "^4.0|^5.0",
+    "mockery/mockery": "^0.9",
+    "satooshi/php-coveralls": "^1.0"
   }
-
 }

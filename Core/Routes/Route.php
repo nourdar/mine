@@ -239,6 +239,48 @@ class Route
         return false;
     }
 
+    private function matchedIfPost()
+    {
+        for ($i=0; $i < count($this->routes); $i++) {
+            $route = $this->routes[$i];
+            if ($route['ROUTE'] === $this->uri && $this->uri === $route['URI_HANDLE']) {
+                $route = $this->fillMatched($route, false);
+                return $this->matched = $route;
+            }
+        }
+
+        for ($i=0; $i < count($this->routes); $i++) {
+            $route = $this->routes[$i];
+            if ($route['ROUTE_HANDLE'] === $route['URI_HANDLE']) {
+                $route = $this->fillMatched($route, true);
+                return $this->matched = $route;
+            }
+        }
+
+        return false;
+    }
+
+    private function matchefIfGet()
+    {
+        for ($i=0; $i < count($this->routes); $i++) {
+            $route = $this->routes[$i];
+            if ($route['ROUTE'] === $this->uri && $this->uri === $route['URI_HANDLE']) {
+                $route = $this->fillMatched($route, false);
+                return $this->matched = $route;
+            }
+        }
+
+        for ($i=0; $i < count($this->routes); $i++) {
+            $route = $this->routes[$i];
+            if ($route['ROUTE_HANDLE'] === $route['URI_HANDLE']) {
+                $route = $this->fillMatched($route, true);
+                return $this->matched = $route;
+            }
+        }
+
+        return false;
+    }
+
     private function fillMatched($route, bool $hasVar)
     {
         $result = [
@@ -262,6 +304,7 @@ class Route
             }
             return $this->uri = rtrim($_GET['url'], '/');
         endif;
+
         return $this->uri = "/";
     }
 
