@@ -7,8 +7,8 @@
     <div class="ui right floated simple dropdown item"><?php echo $me->name()." ".$me->username(); ?>
         &nbsp <i class="fa fa-user"></i>
         <div class="menu">
-            <a href="admin/me" class="item"><i class="fa fa-user-cog"></i>&nbsp Edit info</a>
-            <a href="admin/logout" class="item"><i class="fa fa-user-slash"></i>&nbsp logout</a>
+            <a href=<?php echo url('admin/me')?> class="item"><i class="fa fa-user-cog"></i>&nbsp Edit info</a>
+            <a href=<?php echo url('admin/logout')?> class="item"><i class="fa fa-user-slash"></i>&nbsp logout</a>
         </div>
     </div>
 

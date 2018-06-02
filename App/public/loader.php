@@ -1,25 +1,16 @@
 <?php
 session_start();
 
-use Core\Routes\Route;
+use \Core\Factory;
 
-require "../../vendor/autoload.php";
+    require "../../vendor/autoload.php";
 
+    require "../../Core/Helpers/helper.php";
 
-require "../../Core/Helpers/helper.php";
+    Factory::runFlipWhoops();
 
+    include '../Routes/web.php';
 
+    $routing->run();    // Run Router;
 
-
-
-
-$whoops = new \Whoops\Run;
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-$whoops->register();
-
-
-include '../Routes/web.php';
-
-
-
-$routing->run();
+    Factory::getDb();   // Run Database;

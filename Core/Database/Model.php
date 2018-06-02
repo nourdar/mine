@@ -1,32 +1,30 @@
 <?php
 namespace Core\Database;
-use Nette\Database\Connection;
-use Core\Database\DbSettings as DB;
+
+use \Nette\Database\Connection;
+
 class Model
 {
-    public $dtb;
     private $select = [];
     private $table = [];
     private $where = [];
+    public $db;
 
 
-    public function __construct ()
+    public function __construct($dbConnection = null)
     {
-       $dtb = new DB();
-       $this->connect($dtb->server, $dtb->db_name, $dtb->username,$dtb->password);
-
+        return $this->db = $dbConnection;
     }
 
-    private function connect($server,$dtbname,$user,$password)
-
+    public static function connect($server, $dtbname, $user, $password)
     {
         $dsn = "mysql:host=".$server.";dbname=".$dtbname;
-        $dtb = new Connection($dsn,$user,$password);
-        $this->dtb = $dtb;
-        return $this;
+        $dtb = new Connection($dsn, $user, $password);
+        return $dtb;
     }
 
-    public function select(){
+    public function select()
+    {
         $args = func_get_args();
         $this->select = $args;
         return $this;
