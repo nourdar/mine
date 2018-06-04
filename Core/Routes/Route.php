@@ -37,6 +37,7 @@ class Route
      */
     private $uri;
 
+
     /**
      * @var string;
      */
@@ -63,14 +64,11 @@ class Route
     {
 
 
-        if ($this->setMatched()) {
-            $this->setMatched();
+        if ($this->setMatched("GET")) {
+            $this->setMatched("GET");
         }  else {
             throw new \Exception("INVALID URL ". $this->uri);
         }
-        //p($this->matched['URI_HANDLE']);
-        //pvd($this->matched['ROUTE']);
-
 
         if ($this->setVariables()) {
             $this->setVariables();
@@ -78,6 +76,25 @@ class Route
 
         if (empty($this->variables) && !empty($this->matched['VARIABLES']) && $this->matched['HAS_VAR'] === true) {
             throw new \Exception("You Have To Insert Variables In Your Link");
+        }
+
+        $this->controllerNamespace();
+
+        $this->setController();
+
+        $this->checkMethod();
+
+        $this->controllStart();
+
+        return $this;
+    }
+
+    public function runPost()
+    {
+        if ($this->setMatched("POST")) {
+            $this->setMatched("POST");
+        } else {
+            throw new \Exception("INVALID URL ". $this->uri);
         }
 
         $this->controllerNamespace();
@@ -161,9 +178,6 @@ class Route
         } else {
             return  $class->$methodName();
         }
-
-
-
     }
 
     private  function controllerNamespace()
@@ -218,65 +232,25 @@ class Route
         return  $variables;
     }
 
-    private function setMatched()
+    private function setMatched($method)
     {
-        for ($i=0; $i < count($this->routes); $i++) {
-            $route = $this->routes[$i];
-            if ($route['ROUTE'] === $this->uri && $this->uri === $route['URI_HANDLE']) {
-                $route = $this->fillMatched($route, false);
-                return $this->matched = $route;
+
+            for ($i=0; $i < count($this->routes); $i++) {
+                $route = $this->routes[$i];
+                if ($route['ROUTE'] === $this->uri && $this->uri === $route['URI_HANDLE'] && $route['METHOD'] === $method) {
+                    $route = $this->fillMatched($route, false);
+                    return $this->matched = $route;
+                }
             }
-        }
 
-        for ($i=0; $i < count($this->routes); $i++) {
-            $route = $this->routes[$i];
-            if ($route['ROUTE_HANDLE'] === $route['URI_HANDLE']) {
-                $route = $this->fillMatched($route, true);
-                return $this->matched = $route;
+            for ($i=0; $i < count($this->routes); $i++) {
+                $route = $this->routes[$i];
+                if ($route['ROUTE_HANDLE'] === $route['URI_HANDLE'] && $route['METHOD'] === $method) {
+                    $route = $this->fillMatched($route, true);
+                    return $this->matched = $route;
+                }
             }
-        }
 
-        return false;
-    }
-
-    private function matchedIfPost()
-    {
-        for ($i=0; $i < count($this->routes); $i++) {
-            $route = $this->routes[$i];
-            if ($route['ROUTE'] === $this->uri && $this->uri === $route['URI_HANDLE']) {
-                $route = $this->fillMatched($route, false);
-                return $this->matched = $route;
-            }
-        }
-
-        for ($i=0; $i < count($this->routes); $i++) {
-            $route = $this->routes[$i];
-            if ($route['ROUTE_HANDLE'] === $route['URI_HANDLE']) {
-                $route = $this->fillMatched($route, true);
-                return $this->matched = $route;
-            }
-        }
-
-        return false;
-    }
-
-    private function matchefIfGet()
-    {
-        for ($i=0; $i < count($this->routes); $i++) {
-            $route = $this->routes[$i];
-            if ($route['ROUTE'] === $this->uri && $this->uri === $route['URI_HANDLE']) {
-                $route = $this->fillMatched($route, false);
-                return $this->matched = $route;
-            }
-        }
-
-        for ($i=0; $i < count($this->routes); $i++) {
-            $route = $this->routes[$i];
-            if ($route['ROUTE_HANDLE'] === $route['URI_HANDLE']) {
-                $route = $this->fillMatched($route, true);
-                return $this->matched = $route;
-            }
-        }
 
         return false;
     }
@@ -327,4 +301,6 @@ class Route
         $uri = implode('/', $dividingUri);
         return  $uri;
     }
+
+
 }

@@ -1,3 +1,4 @@
+
 <?php echo e(jsFile('jquery')); ?>
 
 <?php echo e(jsFile('semantic.min')); ?>

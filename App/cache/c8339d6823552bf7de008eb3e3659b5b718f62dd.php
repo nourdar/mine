@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>Welcome To My Website</title>
+    <?php echo e(cssFile('main')); ?>
+
     <?php echo e(cssFile('semantic.min')); ?>
 
     <?php echo e(cssFile('fontawesome-all.min')); ?>
@@ -14,7 +16,7 @@
 
     <?php echo e(cssFile('basic')); ?>
 
-    <?php echo e(cssFile('main')); ?>
+    <?php echo e(cssFile('layout')); ?>
 
 </head>
 <body>

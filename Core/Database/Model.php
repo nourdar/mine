@@ -64,4 +64,10 @@ class Model
         }
         return $this;
     }
+
+    public function updateField($field,$value,$where)
+    {
+        $array = [$field    => $value ];
+        return $this->dtb->query("UPDATE ?name SET ", $this->table, $array, "WHERE ".$where);
+    }
 }

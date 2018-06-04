@@ -2,48 +2,31 @@
 namespace App\Controllers;
 
 use \Core\Controllers\Controller;
-use \App\Database\Model\Me;
+
 use  upload;
 
 class MeController extends Controller {
 
     public $me;
 
-
     public function __construct()
     {
-        $database = new Me();
-        $this->me = $database;
-
+        $this->me = model("Me");
     }
 
-    public function sayHello()
+    public function layout()
     {
-        rMsg('t', 'show message from say hello');
-        view('Admin.index', ['me'=>$this->me]);
+        return view('layout');
     }
 
     public function editPage()
     {
-        rMsg('t', 'show message from say hello');
-
-         return view('Admin.me',[
-             'a' => "hello test variable sending",
-             'me'=> $this->me
-         ]);
+         return view('Admin.me', ['me'=> $this->me]);
     }
 
-    public function show()
-    {
-        echo "hello from show method inside MeController";
-    }
-
-    public function showV($var = null)
-    {
-        pvd($var);
-    }
     public function uploadMyImage()
     {
+        header('Content-type: application/json');
         $file = $_FILES['file'];
         $uploader = new upload($file);
         $uploader->process('Store/Images');
@@ -51,12 +34,40 @@ class MeController extends Controller {
             $array = ["image"=>$uploader->file_dst_name];
             $result = $this->me->update($array);
             if ($result) {
-               echo $uploader->file_dst_name;
+                $name = ['name' => $uploader->file_dst_name];
+                echo json_encode($name);
             } else {
                 return false;
             }
         }
+    }
+
+    public function update()
+    {
+        extract($_POST);
+
+       $array = [
+           "name"           => $name,
+           "surname"        => $surname,
+           "address"        => $address,
+           "birthday"       => $birthday,
+           "email"          => $email,
+           "phone1"         => $phone1,
+           "phone2"         => $phone2,
+           "job"            => $job,
+           "description"    => $description,
+           "about_me"       => $about
+       ];
+
+       $result = $this->me->update($array);
+        if ($result) {
+            rMsg('t','My Informations has been Uploaded With Success');
+
+        } else {
+            rMsg('f','oops there is something wrong operation has not been finished with succees');
         }
+        redirect('back');
+    }
 
 
 }

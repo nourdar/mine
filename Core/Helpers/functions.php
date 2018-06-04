@@ -50,11 +50,13 @@ function pvd($array)
 /**
  * @param $file
  */
-function image(string $file)
+function image($file)
 {
         global $imagesPath;
     if (file_exists($imagesPath. $file)) {
-        echo $imagesPath.$file;
+        $img = $imagesPath;
+        $img .= $file;
+        echo $img;
     } else {
           echo $imagesPath.'oops.png';
     }
@@ -65,9 +67,29 @@ function url(string $url)
     $mode = "test";
 
     if ($mode === "test") {
-        echo "index.blade.php?url=".$url;
+        echo "index.php?url=".$url;
     } else {
         echo $url;
+    }
+}
+
+function purl(string $url)
+{
+   echo $url;
+}
+
+function me($column)
+{
+    $me = \Core\Factory::getModel("Me");
+    return $me->giveMe($column);
+}
+
+function redirect($page)
+{
+    if($page == "back") {
+       return header('Location: ' . $_SERVER['HTTP_REFERER']);
+    } else {
+        return header('Location: ' . $page);
     }
 }
 

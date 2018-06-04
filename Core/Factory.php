@@ -56,6 +56,13 @@ class Factory
         return $blade;
     }
 
+    public static function getModel($name)
+    {
+        $model = "\App\Database\Model\\".$name;
+        $model = new $model();
+        return $model;
+    }
+
 
 
 

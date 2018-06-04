@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$('.ui.sidebar').sidebar({
-	    transition: 'overlay'
+	    transition: 'push'
 	});
 	// For responsive sidebar menu
 	$("a.sidebar-toggle").click(function() {

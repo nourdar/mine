@@ -7,15 +7,41 @@
     opacity: 0;
 }
 .dropzone {
-    border: none ;
+    border: 3px dashed #333 ;
     border-radius: 20px;
-    color: #902f2f;
-    background-color: #f2f2f2;
+
+
     margin-bottom: 20px;
+}
+.dz-message {
+    margin-top : 50% !important;;
+}
+.dz-message span {
+    color: #333 !important;
+    font-size : 25px;
 }
 #uploadMyImage {
     width: 400px;
     height: 400px;
     margin: auto;
+}
+.profile-description {
+    margin-top:10px;
+    color: #ccc;
+}
+.text-center {
+    text-align: center;
+}
 
+.margin-0 {
+    margin: 0px !important;
+}
+.p-l-10 {
+    padding-left: 10px;
+}
+.inline-block {
+    display: inline-block !important;
+}
+.hidden {
+    display: none !important;
 }

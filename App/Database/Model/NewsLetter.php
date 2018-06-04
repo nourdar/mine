@@ -4,24 +4,18 @@ namespace App\Database\Model;
 use Core\Database\Model;
 use Core\Factory;
 
-class Me extends Model
+class NewsLetter extends Model
 {
 
 
-    protected $table = "me";
+    protected $table = "news_letter";
     public $dtb;
 
     public function __construct()
     {
-         $this->dtb = Factory::getdb();
+        $this->dtb = Factory::getdb();
     }
 
-
-
-    public function update($array)
-    {
-        return $this->dtb->query("UPDATE ?name SET ", $this->table, $array, "WHERE id = 1 ");
-    }
 
     public function insert($array)
     {

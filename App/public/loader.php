@@ -3,14 +3,19 @@ session_start();
 
 use \Core\Factory;
 
-    require "../../vendor/autoload.php";
+require "../../vendor/autoload.php";
 
-    require "../../Core/Helpers/helper.php";
+require "../../Core/Helpers/helper.php";
 
-    Factory::runFlipWhoops();
+Factory::runFlipWhoops();
 
-    include '../Routes/web.php';
+include '../Routes/web.php';
 
-    $routing->run();    // Run Router;
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    $routing->runPost(); // Run Router With POST Method To Handle POST Request;
+} else {
+    $routing->run();    // Run Router With GET Method;
+}
+
 
     Factory::getDb();   // Run Database;

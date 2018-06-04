@@ -1,23 +1,37 @@
 <?php
 
+/**
+ * ADMIN PANEL ROUTING
+ */
 
 /**
  * GET section
  */
-get('/', "Me@sayHello");
-get('admin/{username}/{age}', "Me@showV");
-get('admin/me/{id}/page/{pageNumber}/ss', 'Me@show');
-get('admin/me', 'Me@editPage');
-get('admin/page/{ff}', 'Me@show');
+
+get('Admin', 'Admin@index');
+get('Admin/EditMe', 'Me@editPage');
+
 
 /**
  * POST section
  */
 
-post('admin/meUpdate', 'Me@post');
-post('admin/meUpdate', 'Me@post');
-post('post', 'Me@post');
+
+post('Admin/EditMe/UploadImage', 'Me@uploadMyImage');
+post('Admin/EditMe/MeUpdate', 'Me@update');
 
 
-post('Admin/EditMe/uploadImage', 'Me@uploadMyImage');
-post('test', 'Me@testUpload');
+/**
+ * Website Routes
+ */
+
+/**
+ * GET Section
+ */
+get('/','Me@layout');
+
+/**
+ * POST Section
+ */
+
+post('addEmailNewsLetter','NewsLetter@addEmailNewsLetter');

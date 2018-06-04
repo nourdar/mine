@@ -1,21 +1,25 @@
 <?php
 
-$mySession = $_SESSION;
 
 function add_session($array)
 {
-    global $mySession;
+    global $_SESSION;
     foreach ($array as $key => $val) {
-        $mySession['old_'.$key] = $val;
+        $_SESSION['old_'.$key] = $val;
     }
     return true;
 }
 
+function setS($key,$value)
+{
+    return $_SESSION[$key] = $value;
+}
+
 function old($value, $modelVariable = null)
 {
-    global $mySession;
-    if (isset($mySession['old_'.$value])) {
-        echo $mySession['old_'.$value];
+    global $_SESSION;
+    if (isset($_SESSION['old_'.$value])) {
+        echo $_SESSION['old_'.$value];
     } else {
         echo $modelVariable->giveMe($value);
     }
@@ -23,36 +27,36 @@ function old($value, $modelVariable = null)
 
 function ses($name)
 {
-    global $mySession;
-    if (isset($mySession[$name])) {
-        echo $mySession[$name];
+
+    if (isset($_SESSION[$name])) {
+        echo $_SESSION[$name];
     }
 
-    if (isset($mySession['FLASH']['KEY'])) {
-        if ($mySession['FLASH']['KEY'] == $name) {
-            unset($mySession[$name]);
+    if (isset($_SESSION['FLASH']['KEY'])) {
+        if ($_SESSION['FLASH']['KEY'] == $name) {
+            unset($_SESSION[$name]);
         }
     }
+
 }
 
 function s_flash(string $key = null, string $val = null, array $array = null)
 {
-    global $mySession;
+    global $_SESSION;
+
     if (is_array($array)) {
         foreach ($array as $key => $val) {
-            $mySession[$key] = $val;
-            $mySession["FLASH"] = array(
-                "KEY" => $key,
-                "FLASH_TIME" => 1
+            $_SESSION[$key] = $val;
+            $_SESSION["FLASH"] = array(
+                "KEY" => $key
             );
         }
     }
 
     if (!empty($key) && !empty($val)) {
-        $mySession[$key] = $val;
-        $mySession["FLASH"] = array(
-            "KEY" => $key,
-            "FLASH_TIME" => 1
+        $_SESSION[$key] = $val;
+        $_SESSION["FLASH"] = array(
+            "KEY" => $key
         );
     }
 }
@@ -64,7 +68,7 @@ function rMsg(string $type, string $message)
                 <div class="header"> oops there is something wrong </div>
                 <div class="message">' . $message . '</div>
                 </div>';
-        s_flash('s_message', $msg);
+       return s_flash('s_message', $msg);
     }
 
     if ($type == "t") {
@@ -72,6 +76,7 @@ function rMsg(string $type, string $message)
                 <div class="header"> operation has been finished with success </div>
                 <div class="message">'.$message.'</div>
                 </div>';
-        s_flash('s_message', $msg);
+        return s_flash('s_message', $msg);
     }
+    return true ;
 }

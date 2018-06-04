@@ -1,17 +1,18 @@
 @extends('Admin.index')
 @section('content')
-<h1>Edit My Personal Informations</h1>
+<h1 class="ui red header ">Edit My Personal Informations</h1>
 {{ ses('s_message') }}
 
-<form class="ui form" method="post" action="{{ url('admin/meUpdate') }}" enctype="multipart/form-data">
+
+<form class="ui form" method="post" action="{{ purl('Admin/EditMe/MeUpdate') }}" enctype="multipart/form-data">
     <div class="field">
         <label>Name</label>
         <div class="two fields">
             <div class="field">
-                <input  value={{  $me->giveMe('name') }} name="name">
+                <input  value={{  old('name', $me) }} name="name">
             </div>
             <div class="field">
-                <input value={{  $me->giveMe('surname') }} name="username">
+                <input value={{  old('surname', $me) }} name="surname">
             </div>
         </div>
     </div>
@@ -27,45 +28,49 @@
         <div class="four fields">
             <div class="field">
                 <label>Birthday : </label>
-                <input type="date" value={{  $me->giveMe('birthday') }} name="birthday">
+                <input type="date" value={{  old('birthday', $me) }} name="birthday">
             </div>
             <div class="field">
                 <label>E-mail : </label>
-                <input value={{  $me->giveMe('email') }} name="email">
+                <input value={{  old('email', $me) }} name="email">
             </div>
             <div class="field">
                 <label>phone 1 : </label>
-                <input value={{  $me->giveMe('phone1') }} name="phone1">
+                <input value={{  old('phone1', $me) }} name="phone1" >
             </div>
             <div class="field">
                 <label>phone 2 : </label>
-                <input value={{  $me->giveMe('phone2') }} name="phone2">
+                <input  name="phone2" value={{  old('phone2', $me) }} />
             </div>
         </div>
     <div class="field">
         <label>job : </label>
-        <input value={{  $me->giveMe('job') }} name="job">
+        <input value={{  old('job', $me) }} name="job">
     </div>
     <div class="fields">
-        <div class="six wide field">
-            <label><img src="{{  image($me->giveMe('image')) }}" id="uploadMyImage" class="ui image rounded "/></label>
+        <div class="eight wide field">
+            <label><img src="Store/Images/{{ old('image', $me) }}" id="uploadMyImage" class="ui image rounded "/></label>
         </div>
        <div class="eight wide field dropzone">
-           {{--<input name="image" type="file" value={{  $me->giveMe('image') }} class="input-file" >--}}
+           {{--<input name="image" type="file" value={{  old('image') }} class="input-file" >--}}
            <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
        </div>
     </div>
 
     <div class="field">
         <label>Description</label>
-        <textarea rows="3" name="description">{{  $me->giveMe('description') }}</textarea>
+        <textarea rows="3" name="description">{{  old('description', $me) }}</textarea>
     </div>
 
     <div class="field">
         <label>About</label>
-        <textarea name="about" >{{  $me->giveMe('about_me') }}</textarea>
+        <textarea name="about" >{{  old('about_me', $me) }}</textarea>
     </div>
 
-    <input type="submit" value="change settings" class="ui button blue"/>
+    <input type="submit" value="change settings" class="fluid ui blue button"/>
 </form>
+@endsection
+
+@section('right-bar')
+
 @endsection
