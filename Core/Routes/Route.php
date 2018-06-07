@@ -23,7 +23,7 @@ class Route
      * Contain Route Informations if it matched with entred URI
      * @var array
      */
-    private $matched = [];
+    public $matched = [];
 
     /**
      * Store Variables Comes From The URI
@@ -261,6 +261,7 @@ class Route
             'METHOD'           => $route["METHOD"],
             'ROUTE'            => $route["ROUTE"],
             'ROUTE_HANDLE'     => $route["ROUTE_HANDLE"],
+            'URI'              => $this->uri,
             'URI_HANDLE'       => $route["URI_HANDLE"],
             'VARIABLES'        => $route["VARIABLES"],
             'VARIABLES_KEYSES' => $route["VARIABLES_KEYSES"],

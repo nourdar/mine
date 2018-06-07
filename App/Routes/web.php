@@ -1,37 +1,28 @@
 <?php
 
-/**
- * ADMIN PANEL ROUTING
- */
-
-/**
- * GET section
- */
-
-get('Admin', 'Admin@index');
-get('Admin/EditMe', 'Me@editPage');
-
-
-/**
- * POST section
- */
-
-
-post('Admin/EditMe/UploadImage', 'Me@uploadMyImage');
-post('Admin/EditMe/MeUpdate', 'Me@update');
-
-
-/**
- * Website Routes
- */
 
 /**
  * GET Section
  */
-get('/','Me@layout');
+
 
 /**
- * POST Section
- */
+ * Return To Index Page
+*/
+get('/','Me@layout');
 
-post('addEmailNewsLetter','NewsLetter@addEmailNewsLetter');
+
+
+
+
+$filesArray = [
+    "admin",
+    "me",
+    "newsLetter",
+    "skills",
+    'tweet'
+];
+
+foreach ($filesArray as $key) {
+    include $key.".php";
+}

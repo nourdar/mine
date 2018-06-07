@@ -4,11 +4,15 @@
 <div class="ui stackable grid">
     <div class="ten wide column">
         <div class="ui relaxed gird">
+
+
+
+
             <?php echo $__env->yieldContent('content'); ?>
         </div>
     </div>
 
-    <div class="six wide column">
+    <div class="  six wide column ">
         <div class="ui relaxed gird">
             <?php echo $__env->yieldContent('right-bar'); ?>
         </div>

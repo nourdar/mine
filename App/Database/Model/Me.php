@@ -18,7 +18,7 @@ class Me extends Model
 
 
 
-    public function update($array)
+    public function updateMe($array)
     {
         return $this->dtb->query("UPDATE ?name SET ", $this->table, $array, "WHERE id = 1 ");
     }

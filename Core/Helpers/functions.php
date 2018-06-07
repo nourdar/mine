@@ -93,3 +93,38 @@ function redirect($page)
     }
 }
 
+function facebookButton()
+{
+    if (empty(me('is_f_show'))) {
+       return null;
+    } else {
+        echo  ' <li><a target="_blank" href="'.me('facebook').'">
+                        <div class="facebook icon"><span class="zocial-facebook"></span></div>
+                        <h2 class="facebook titular">My Facebook Profile</h2></li></a>';
+
+    }
+}
+
+function twitterButton()
+{
+    if (empty(me('is_t_show'))) {
+        return null;
+    } else {
+        echo  ' <li><a href="'.me('twitter').'">
+                 <div class="twitter icon"><span class="zocial-twitter"></span>
+                 </div><h2 class="twitter titular">My Twitter Profile</h2></li></a>';
+
+    }
+}
+
+function githubButton()
+{
+    if (empty(me('is_g_show'))) {
+        return null;
+    } else {
+        echo  '  <li><a href="'.me('github').'">
+              <div class="github icon"><span class="fab fa-github"></span></div>
+              <h2 class="github titular">My Github</h2></li></a>';
+
+    }
+}

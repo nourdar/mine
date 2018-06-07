@@ -88,9 +88,6 @@ a:hover {
     text-decoration: underline;
 }
 
-h1, h2, p, a, span{
-    color: #fff;
-}
 .scnd-font-color {
     color: #9099b7;
 }
@@ -98,7 +95,7 @@ h1, h2, p, a, span{
 .input-container {
     position: relative;
 }
-input[type=text]{
+input[name=emailNewsLetter]{
     width: 260px;
     height: 50px;
     margin-left: 20px;

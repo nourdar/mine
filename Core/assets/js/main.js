@@ -22,7 +22,7 @@ function changeSrc( tag, src)
 $('.accordion-sidebar')
     .accordion()
 ;
-
+$('.ui.checkbox').checkbox('slider');
 
 
 $('#addNewsLetter').on('click',function(e){
@@ -40,4 +40,45 @@ $('#addNewsLetter').on('click',function(e){
             });
     });
     e.preventDefault();
+});
+
+
+$('#skillsTextarea').keyup(function(){
+    val = $(this).val();
+    $('#skillsPreview').text(val);
+    Prism.highlightAll();
+
+});
+$(".showSkill").click(function(){
+    let id = $(this).data('id');
+    let div = $('#skill-preview');
+    let xhr = new XMLHttpRequest();
+    let url = "Admin/EditMe/Skills/Select/" + id;
+    xhr.open('GET',url);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            div.text(xhr.response);
+            Prism.highlightAll();
+        }
+    }
+    xhr.send();
+});
+
+
+$('*[data-help]').hover(function () {
+    let value = $(this).data('help');
+    let child = ' <span id="decsSpan">' + value + '</span>';
+    $('body').mousemove(function (e) {
+        let span = $('#decsSpan');
+        let left = e.pageX + 20 +"px";
+        let top = e.pageY;
+        console.log(left);
+        span.css({top:top,left:left});
+    });
+    $('body').append(child);
+
+
+
+    }, function() {
+   $("#decsSpan").remove();
 });

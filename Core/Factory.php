@@ -5,13 +5,13 @@ use \Core\Config;
 use \Core\Database\DbSettings;
 use \Core\Database\Model;
 use \Jenssegers\Blade\Blade;
+use Nette\Caching\Cache;
+use Nette\Caching\Storages\FileStorage;
 
 class Factory
 {
-    private static $config;
     private static $route;
     private static $dtb;
-    private static $isDtb = false;
 
     public static function getRoute()
     {
@@ -25,20 +25,47 @@ class Factory
 
     public static function getDb()
     {
-        if (self::$isDtb === false) :
-            $config   = new DbSettings();
-            $dtb = Model::connect($config->server, $config->db_name, $config->username, $config->password);
-            self::$dtb = $dtb;
-            self::$isDtb = true;
-            return self::$dtb;
-        endif;
+        $config   = new DbSettings();
+        $dtb = Model::connect($config->server, $config->db_name, $config->username, $config->password);
+        self::$dtb = $dtb;
         return self::$dtb;
+    }
+
+    public static function dbStorage()
+    {
+        $config   = self::getConfig();
+        $storage  = new FileStorage($config->cachePath);
+        return $storage;
+    }
+
+    public static function dbCache()
+    {
+        $cach = new Cache(self::dbStorage());
+        return $cach;
+    }
+    public static function dbStructure()
+    {
+
+        $structure = new \Nette\Database\Structure(self::getDb(), self::dbStorage());
+        return $structure;
+    }
+
+    public static function dbConventions()
+    {
+        $conventions = new \Nette\Database\Conventions\DiscoveredConventions(self::dbStructure());
+        return $conventions;
+    }
+
+    public static function dbContext()
+    {
+        $context = new \Nette\Database\Context(self::getDb(), self::dbStructure(), self::dbConventions(), self::dbStorage());
+        return $context;
     }
 
     public static function getConfig()
     {
         $config   = new Config();
-        return self::$config = $config;
+        return  $config;
     }
 
     public static function runFlipWhoops()
@@ -62,8 +89,4 @@ class Factory
         $model = new $model();
         return $model;
     }
-
-
-
-
 }

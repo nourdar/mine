@@ -17,13 +17,15 @@ class NewsLetterController extends Controller
     {
         extract($_POST);
         $array = [
-            "email"      => $email,
+            "email"      => $emailNewsLetter,
             "created_at" => time(),
             "ip"         => $_SERVER['REMOTE_ADDR']
         ];
-        $this->model->insert($array);
-        return true;
+        try {
+            $this->model->insert($array);
+            return true;
+        } catch (\PDOException $e) {
+            return false;
+        }
     }
-
-
 }

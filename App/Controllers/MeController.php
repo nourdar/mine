@@ -21,7 +21,7 @@ class MeController extends Controller {
 
     public function editPage()
     {
-         return view('Admin.me', ['me'=> $this->me]);
+         return view('Admin.Me.me', ['me'=> $this->me]);
     }
 
     public function uploadMyImage()
@@ -32,12 +32,12 @@ class MeController extends Controller {
         $uploader->process('Store/Images');
         if ($uploader->processed) {
             $array = ["image"=>$uploader->file_dst_name];
-            $result = $this->me->update($array);
-            if ($result) {
+            try {
+                $this->me->update($array);
                 $name = ['name' => $uploader->file_dst_name];
                 echo json_encode($name);
-            } else {
-                return false;
+            } catch (\PDOException $e) {
+                return false ;
             }
         }
     }
@@ -46,7 +46,11 @@ class MeController extends Controller {
     {
         extract($_POST);
 
-       $array = [
+        $facebookShow  = isset($facebookShow)? "checked" : null ;
+        $twitterShow   = isset($twitterShow)? "checked" : null ;
+        $githubShow    = isset($githubShow)? "checked" : null ;
+
+        $array = [
            "name"           => $name,
            "surname"        => $surname,
            "address"        => $address,
@@ -56,18 +60,21 @@ class MeController extends Controller {
            "phone2"         => $phone2,
            "job"            => $job,
            "description"    => $description,
-           "about_me"       => $about
+           "about_me"       => $about,
+           "facebook"       => $facebook,
+           "is_f_show"      => $facebookShow,
+           "twitter"        => $twitter,
+           "is_t_show"      => $twitterShow,
+           "github"         => $github,
+           "is_g_show"      => $githubShow
        ];
-
-       $result = $this->me->update($array);
-        if ($result) {
-            rMsg('t','My Informations has been Uploaded With Success');
-
-        } else {
-            rMsg('f','oops there is something wrong operation has not been finished with succees');
+        try {
+            $this->me->updateMe($array);
+            rMsg('t', 'My Informations has been Uploaded With Success');
+            redirect('back');
+        } catch (\PDOException $e) {
+            rMsg('f', 'Ooops My Informations has not been Updated With Successful <br> '.$e->getMessage());
+            redirect('back');
         }
-        redirect('back');
     }
-
-
 }

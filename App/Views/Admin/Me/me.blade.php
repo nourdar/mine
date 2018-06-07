@@ -1,7 +1,7 @@
 @extends('Admin.index')
 @section('content')
 <h1 class="ui red header ">Edit My Personal Informations</h1>
-{{ ses('s_message') }}
+
 
 
 <form class="ui form" method="post" action="{{ purl('Admin/EditMe/MeUpdate') }}" enctype="multipart/form-data">
@@ -67,10 +67,54 @@
         <textarea name="about" >{{  old('about_me', $me) }}</textarea>
     </div>
 
-    <input type="submit" value="change settings" class="fluid ui blue button"/>
-</form>
+
+
+
 @endsection
 
 @section('right-bar')
+    <div class="left-v-line "></div>
+    <div class="clear"></div>
+        <div class="ui form">
+            <div class="fields">
 
+                <div class=" four wide field">
+                    <label><i class="fab fa-facebook"></i> Facebook </label>
+                    <div class="ui  checkbox toggle ">
+                        <input type="checkbox" {{ old('is_f_show',$me) }} name="facebookShow">
+                    </div>
+                </div>
+                <div class="fourteen wide field">
+                    <input type="url" name="facebook" value="{{ old('facebook',$me) }}">
+                </div>
+            </div>
+            <div class="fields">
+
+                <div class=" four wide field">
+                    <label><i class="fab fa-twitter"></i> Twitter</label>
+                    <div class="ui checkbox toggle ">
+                        <input type="checkbox" {{ me('is_t_show',$me) }} name="twitterShow">
+                    </div>
+                </div>
+                <div class="fourteen wide field">
+                    <input type="url" name="twitter" value="{{ old('twitter',$me) }}">
+                </div>
+            </div>
+
+            <div class="fields">
+
+                <div class="four wide field">
+                    <label><i class="fab fa-github-square"></i> Github </label>
+                    <div class="ui  checkbox toggle ">
+                        <input type="checkbox" {{ old('is_g_show',$me) }} name="githubShow">
+                    </div>
+                </div>
+                <div class="fourteen wide field">
+                    <input type="url" name="github" value="{{ old('github',$me) }}">
+                </div>
+            </div>
+            </div>
+        </div>
+        <input type="submit" value="change settings" class="fluid ui blue button"/>
+</form>
 @endsection

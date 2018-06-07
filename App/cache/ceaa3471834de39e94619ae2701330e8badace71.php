@@ -6,7 +6,7 @@
     <header class="block">
         <ul class="header-menu horizontal-list">
             <li>
-                <a class="header-menu-tab" href="<?php echo e(url('admin/me')); ?>"><span class="icon entypo-cog scnd-font-color"></span>Admin Panel</a>
+                <a class="header-menu-tab" href="<?php echo e(url('Admin/EditMe')); ?>"><span class="icon entypo-cog scnd-font-color"></span>Admin Panel</a>
             </li>
             <li>
                 <a class="header-menu-tab" href="#2"><span class="icon fontawesome-user scnd-font-color"></span>About Me</a>
@@ -19,7 +19,7 @@
         <div class="profile-menu">
             <p><?php echo e(me('name')); ?> <?php echo e(me('surname')); ?></p>
             <div class="profile-picture small-profile-picture">
-                <img width="40px" alt="Anne Hathaway picture" src="<?php echo e(image(me('image'))); ?>">
+                <img width="40px" height="40px" alt="Anne Hathaway picture" src="<?php echo e(image(me('image'))); ?>">
             </div>
         </div>
     </header>
@@ -54,22 +54,27 @@
         <div class="profile block"> <!-- PROFILE (MIDDLE-CONTAINER) -->
             <br>
             <div class="profile-picture big-profile-picture clear">
-                <img width="150px" alt="Anne Hathaway picture" src="<?php echo e(image(me('image'))); ?>" >
+                <img width="100%" height="100%" alt="Anne Hathaway picture" src="<?php echo e(image(me('image'))); ?>" >
             </div>
             <h1 class="user-name"><?php echo e(me('name')); ?> <?php echo e(me('surname')); ?></h1>
             <div class="profile-description">
                 <p class="scnd-font-color"><?php echo e(me('job')); ?></p>
             </div>
-            <div class="profile-description text-center">
+            <div class="profile-description text-left">
                <?php echo e(me('description')); ?>
 
             </div>
         </div>
 
         <ul class="social block"> <!-- SOCIAL (MIDDLE-CONTAINER) -->
-            <li><a href="#50"><div class="facebook icon"><span class="zocial-facebook"></span></div><h2 class="facebook titular">My Facebook Profile</h2></li></a>
-            <li><a href="#51"><div class="twitter icon"><span class="zocial-twitter"></span></div><h2 class="twitter titular">My Twitter Profile</h2></li></a>
-            <li><a href="#52"><div class="github icon"><span class="fab fa-github"></span></div><h2 class="github titular">My Github</h2></li></a>
+            <?php echo e(facebookButton()); ?>
+
+            <?php echo e(twitterButton()); ?>
+
+            <?php echo e(githubButton()); ?>
+
+
+
         </ul>
 
     </div>
@@ -80,7 +85,7 @@
             <h2 class="titular">JOIN MY NEWSLETTER</h2>
             <form action="AddEmailNewsLetter" method="post" id="newLetterForm">
                 <div class="input-container">
-                    <input type="text" placeholder="yourname@gmail.com" class="email text-input news-letter" name="email">
+                    <input type="text" placeholder="yourname@gmail.com" class="email text-input news-letter" name="emailNewsLetter">
                     <span style="color:green" id="newsLettreResponse"></span>
                     <div class="input-icon envelope-icon-newsletter"><span class="fontawesome-envelope scnd-font-color"></span></div>
                 </div>

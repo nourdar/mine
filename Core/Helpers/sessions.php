@@ -20,9 +20,10 @@ function old($value, $modelVariable = null)
     global $_SESSION;
     if (isset($_SESSION['old_'.$value])) {
         echo $_SESSION['old_'.$value];
-    } else {
+    } elseif(!empty($modelVariable)) {
         echo $modelVariable->giveMe($value);
     }
+    return false;
 }
 
 function ses($name)
@@ -69,6 +70,14 @@ function rMsg(string $type, string $message)
                 <div class="message">' . $message . '</div>
                 </div>';
        return s_flash('s_message', $msg);
+    }
+
+    if ($type == "w") {
+        $msg = '  <div class="ui message warning">
+                <div class="header"> Warning </div>
+                <div class="message">' . $message . '</div>
+                </div>';
+        return s_flash('s_message', $msg);
     }
 
     if ($type == "t") {
