@@ -41,7 +41,7 @@ class Route
     /**
      * @var string;
      */
-    private  $controllerNamespace;
+    public  $controllerNamespace;
 
     /**
      * Controller Name
@@ -182,7 +182,10 @@ class Route
 
     private  function controllerNamespace()
     {
-        return $this->controllerNamespace = "App\Controllers\\";
+        if (empty($this->controllerNamespace)) :
+            return $this->controllerNamespace = "App\Controllers\\";
+        endif;
+        return $this;
     }
 
     private function checkMethod()

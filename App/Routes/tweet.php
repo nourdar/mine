@@ -1,8 +1,16 @@
 <?php
+controller('Tweets');
 /**
  * GET Methods
  */
 
 
-get('ad','tweer@rr');
+get('Admin/Tweets', 'Tweets@index');
+get('Admin/Tweets/Add', 'Tweets@add');
 
+
+/***
+ * POST Methods
+ */
+
+post('Admin/Tweets/PostTweet', 'Tweets@insert');

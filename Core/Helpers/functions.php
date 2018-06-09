@@ -28,7 +28,6 @@ function jsFile(string $file)
 }
 
 
-
     /**
      * @param $array
      */
@@ -67,16 +66,12 @@ function url(string $url)
     $mode = "test";
 
     if ($mode === "test") {
-        echo "index.php?url=".$url;
+        return "index.php?url=".$url;
     } else {
-        echo $url;
+        return $url;
     }
 }
 
-function purl(string $url)
-{
-   echo $url;
-}
 
 function me($column)
 {
@@ -127,4 +122,20 @@ function githubButton()
               <h2 class="github titular">My Github</h2></li></a>';
 
     }
+}
+
+
+function getCountry($ip)
+{
+    $xml = simplexml_load_file("http://www.geoplugin.net/xml.gp?ip=".$ip);
+    $array = [
+        'NAME'      => $xml->geoplugin_countryName,
+        'CODE'      => strtolower($xml->geoplugin_countryCode)
+    ];
+    return $array ;
+}
+
+function controller($yourNewFolder)
+{
+   return  \Core\Factory::controllerNameSpace($yourNewFolder);
 }

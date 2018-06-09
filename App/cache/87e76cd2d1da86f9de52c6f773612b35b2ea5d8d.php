@@ -9,6 +9,7 @@
 
     <?php if(!empty(getPages())): ?>
         <div class="ui center inverted  menu">
+
             <?php $__currentLoopData = getPages(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <a href="<?php echo e(url($val['url'])); ?>" class="item">
                     <?php echo e($val['text']); ?>
@@ -66,9 +67,9 @@
                 Social Connection
             </div>
             <div class="content">
-                <a href="#"><i class="fa fa-newspaper"></i> &nbsp NewsLetter Subscribers</a><br><br>
-                <a href="#"><i class="fab fa-twitter red"></i> &nbsp Show My Tweets</a><br><br>
-                <a href="#"><i class="fa fa-plus-circle"></i> &nbsp Add Tweet</a><br><br>
+                <a href="<?php echo e(url('Admin/NewsLetter')); ?>"><i class="fa fa-newspaper"></i> &nbsp NewsLetter Subscribers</a><br><br>
+                <a href="<?php echo e(url('Admin/Tweets')); ?>"><i class="fab fa-twitter red"></i> &nbsp Show My Tweets</a><br><br>
+                <a href="<?php echo e(url('Admin/Tweets/Add')); ?>"><i class="fa fa-plus-circle"></i> &nbsp Add Tweet</a><br><br>
             </div>
             <hr>
             <div class="title"><i class="fa fa-phone-volume "></i> &nbsp Contact</div>

@@ -43,6 +43,7 @@ class Factory
         $cach = new Cache(self::dbStorage());
         return $cach;
     }
+
     public static function dbStructure()
     {
 
@@ -88,5 +89,11 @@ class Factory
         $model = "\App\Database\Model\\".$name;
         $model = new $model();
         return $model;
+    }
+
+    public function controllerNameSpace($YourNewFolde)
+    {
+        self::getRoute();
+        self::$route->controllerNamespace = "App\Controllers\\".$YourNewFolde."\\";
     }
 }

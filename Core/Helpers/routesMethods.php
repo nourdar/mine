@@ -39,7 +39,7 @@ function getPages()
         $final = count($result) - count($route['VARIABLES_KEYSES']);
         for ($i = 0; $i < count($var); $i++) {
             $array[$var[$i]]['text'] =  $array[$last]['text'];
-            unset( $array[$last]);
+            //unset( $array[$last]);
         }
     }
     return $array;

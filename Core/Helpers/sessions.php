@@ -38,7 +38,7 @@ function ses($name)
             unset($_SESSION[$name]);
         }
     }
-
+    return false;
 }
 
 function s_flash(string $key = null, string $val = null, array $array = null)

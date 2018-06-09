@@ -9,6 +9,7 @@
     {{ cssFile('custom') }}
     {{ cssFile('dropzone') }}
     {{ cssFile('basic') }}
+    {{ cssFile('flags.min') }}
     {{ cssFile('layout') }}
 </head>
 <body>

@@ -16,6 +16,8 @@
 
     <?php echo e(cssFile('basic')); ?>
 
+    <?php echo e(cssFile('flags.min')); ?>
+
     <?php echo e(cssFile('layout')); ?>
 
 </head>

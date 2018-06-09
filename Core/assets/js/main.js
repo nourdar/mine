@@ -21,6 +21,7 @@ function changeSrc( tag, src)
 
 $('.accordion-sidebar')
     .accordion()
+$('.ui.dropdown').dropdown();
 ;
 $('.ui.checkbox').checkbox('slider');
 

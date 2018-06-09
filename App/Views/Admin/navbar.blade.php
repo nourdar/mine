@@ -9,6 +9,7 @@
 
     @if(!empty(getPages()))
         <div class="ui center inverted  menu">
+
             @foreach(getPages() as $val)
                 <a href="{{ url($val['url']) }}" class="item">
                     {{$val['text']}}
@@ -64,9 +65,9 @@
                 Social Connection
             </div>
             <div class="content">
-                <a href="#"><i class="fa fa-newspaper"></i> &nbsp NewsLetter Subscribers</a><br><br>
-                <a href="#"><i class="fab fa-twitter red"></i> &nbsp Show My Tweets</a><br><br>
-                <a href="#"><i class="fa fa-plus-circle"></i> &nbsp Add Tweet</a><br><br>
+                <a href="{{ url('Admin/NewsLetter') }}"><i class="fa fa-newspaper"></i> &nbsp NewsLetter Subscribers</a><br><br>
+                <a href="{{ url('Admin/Tweets') }}"><i class="fab fa-twitter red"></i> &nbsp Show My Tweets</a><br><br>
+                <a href="{{ url('Admin/Tweets/Add') }}"><i class="fa fa-plus-circle"></i> &nbsp Add Tweet</a><br><br>
             </div>
             <hr>
             <div class="title"><i class="fa fa-phone-volume "></i> &nbsp Contact</div>

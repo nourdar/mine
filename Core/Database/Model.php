@@ -15,6 +15,8 @@ class Model
     private $last  = null;
     private $limit = null;
     private $order = null;
+    public $rows = [];
+    public $paginate = [];
 
 
     public function __construct()
@@ -59,7 +61,14 @@ class Model
         }
         return false;
     }
-
+    public function rows()
+    {
+        $this->select("*");
+        $stmt = $this->select.$this->table;
+        $query = $this->dtb->query($stmt)->getRowCount();
+        $this->rows['ALL'] = $query;
+        return $this;
+    }
     public function giveMeAll()
     {
         return $this->select("*")->get();
@@ -68,7 +77,10 @@ class Model
     public function get()
     {
         if (!empty($this->last)) {
-            $result = $this->dtb->query($this->last)->fetch();
+            $result = $this->dtb->query($this->last);
+            $this->rows['NOW'] = $result->getRowCount();
+            $this->rows();
+            $result = $result->fetch();
             $this->reset();
             return $result;
         }
@@ -76,13 +88,19 @@ class Model
 
         if (!empty($this->select)  && !empty($this->where)) {
             $query = $this->select.$this->table.$this->where.$this->limit;
-            $result = $this->dtb->query($query)->fetchAll();
+            $result = $this->dtb->query($query);
+            $this->rows['NOW'] = $result->getRowCount();
+            $this->rows();
+            $result = $result->fetchAll();
             return $result;
         }
 
         if (empty($this->where)) {
             $query = $this->select.$this->table.$this->limit;
-            $result =  $this->dtb->query($query)->fetchAll();
+            $result =  $this->dtb->query($query);
+            $this->rows['NOW'] = $result->getRowCount();
+            $this->rows();
+            $result = $result->fetchAll();
             return $result;
         }
         return $this->reset();
@@ -101,9 +119,16 @@ class Model
 
     public function limit(int $start = null, int $end = null, string $orderBy = null)
     {
-        $order = (!empty($this->order))? $this->order : " ORDER BY ". $orderBy ;
+        if (!empty($this->order)) {
+            $order = $this->order;
+        } elseif (!empty($orderBy)) {
+            $order =  " ORDER BY ". $orderBy;
+        } else {
+            $order = " ";
+        }
         $limit = (!empty($end))? $start . " , ".$end : $start;
-        $this->limit = $order ." LIMIT ".$limit;
+        $final = (!empty($order))? $order ." LIMIT ".$limit : " LIMIT ".$limit;
+        $this->limit = $final;
 
         return $this;
     }
@@ -145,6 +170,26 @@ class Model
         return $this;
     }
 
+    public function paginate(int $start, int $end)
+    {
+        $this->rows();
+        $pagesCount = $this->rows;
+        if ($pagesCount['ALL'] === 0) {
+            return $this;
+        }
+        if ($start === 0) {
+            $start = 0;
+        } else {
+            $start = ($start-1) * $end ;
+        }
+
+        if ($start == $pagesCount['ALL']) {
+            $start = $pagesCount['ALL'] - $end;
+        }
+        $this->paginate['CURRENT'] = $start;
+        $this->limit(ceil($start), ceil($end));
+        return $this;
+    }
 }
 
 
