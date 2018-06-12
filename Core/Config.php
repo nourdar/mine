@@ -3,6 +3,6 @@ namespace Core;
 
 class Config
 {
-    public $viewsPath = "../Views";
-    public $cachePath = "../cache";
+    public $viewsPath = "../App/Views";
+    public $cachePath = "../App/cache";
 }

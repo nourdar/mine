@@ -4,15 +4,15 @@
 
 
 
-<form class="ui form" method="post" action="{{ purl('Admin/EditMe/MeUpdate') }}" enctype="multipart/form-data">
+<form class="ui form" method="post" action="{{ url('Admin/EditMe/MeUpdate') }}" enctype="multipart/form-data">
     <div class="field">
         <label>Name</label>
         <div class="two fields">
             <div class="field">
-                <input  value={{  old('name', $me) }} name="name">
+                <input  value="{{  old('name', $me) }}" name="name">
             </div>
             <div class="field">
-                <input value={{  old('surname', $me) }} name="surname">
+                <input value="{{  old('surname', $me) }}" name="surname">
             </div>
         </div>
     </div>
@@ -28,24 +28,24 @@
         <div class="four fields">
             <div class="field">
                 <label>Birthday : </label>
-                <input type="date" value={{  old('birthday', $me) }} name="birthday">
+                <input type="date" value="{{  old('birthday', $me) }}" name="birthday">
             </div>
             <div class="field">
                 <label>E-mail : </label>
-                <input value={{  old('email', $me) }} name="email">
+                <input value="{{  old('email', $me) }}" name="email">
             </div>
             <div class="field">
                 <label>phone 1 : </label>
-                <input value={{  old('phone1', $me) }} name="phone1" >
+                <input value="{{  old('phone1', $me) }}" name="phone1" >
             </div>
             <div class="field">
                 <label>phone 2 : </label>
-                <input  name="phone2" value={{  old('phone2', $me) }} />
+                <input  name="phone2" value="{{  old('phone2', $me) }}" />
             </div>
         </div>
     <div class="field">
         <label>job : </label>
-        <input value={{  old('job', $me) }} name="job">
+        <input value="{{  old('job', $me) }}" name="job">
     </div>
     <div class="fields">
         <div class="eight wide field">

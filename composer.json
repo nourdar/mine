@@ -25,6 +25,7 @@
     "nette/database" : "*",
     "jenssegers/blade" : "1.0.0",
     "vich/uploader-bundle" : "1.8.3",
+    "guzzlehttp/guzzle": "*",
     "verot/class.upload.php": "dev-master"
   },
   "require-dev": {

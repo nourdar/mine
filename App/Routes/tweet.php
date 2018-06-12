@@ -1,5 +1,5 @@
 <?php
-controller('Tweets');
+
 /**
  * GET Methods
  */

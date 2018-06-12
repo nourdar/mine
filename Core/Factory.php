@@ -91,9 +91,12 @@ class Factory
         return $model;
     }
 
-    public function controllerNameSpace($YourNewFolde)
+    public function controllerNameSpace($array)
     {
         self::getRoute();
-        self::$route->controllerNamespace = "App\Controllers\\".$YourNewFolde."\\";
+        self::$route->controllerNamespace['default'] = "App\Controllers\\";
+        foreach ($array as $key => $val) {
+            self::$route->controllerNamespace[$key] = "App\Controllers\\".$val."\\";
+        }
     }
 }

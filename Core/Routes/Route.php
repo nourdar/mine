@@ -41,7 +41,7 @@ class Route
     /**
      * @var string;
      */
-    public  $controllerNamespace;
+    public  $controllerNamespace = [];
 
     /**
      * Controller Name
@@ -78,9 +78,9 @@ class Route
             throw new \Exception("You Have To Insert Variables In Your Link");
         }
 
-        $this->controllerNamespace();
-
         $this->setController();
+
+        $this->controllerNamespace();
 
         $this->checkMethod();
 
@@ -97,9 +97,9 @@ class Route
             throw new \Exception("INVALID URL ". $this->uri);
         }
 
-        $this->controllerNamespace();
-
         $this->setController();
+
+        $this->controllerNamespace();
 
         $this->checkMethod();
 
@@ -171,7 +171,7 @@ class Route
     {
         $variables = $this->variables;
         $methodName = $this->controllerMethod;
-        $class = $this->controllerNamespace.$this->controllerName."Controller";
+        $class = $this->controllerName;
         $class = new $class();
         if (!empty($variables)) {
             return  $class->$methodName($variables);
@@ -184,13 +184,22 @@ class Route
     {
         if (empty($this->controllerNamespace)) :
             return $this->controllerNamespace = "App\Controllers\\";
+        else :
+            foreach ($this->controllerNamespace as $key => $val) {
+                $class = $val.$this->controllerName."Controller";
+                if (class_exists($class)) {
+                    return $this->controllerName = $class;
+                } else {
+                    return false;
+                }
+            }
         endif;
         return $this;
     }
 
     private function checkMethod()
     {
-        $class = $this->controllerNamespace.$this->controllerName.'Controller';
+        $class = $this->controllerName;
         $class = new $class();
 
          return method_exists($class, $this->controllerMethod);
@@ -305,6 +314,4 @@ class Route
         $uri = implode('/', $dividingUri);
         return  $uri;
     }
-
-
 }

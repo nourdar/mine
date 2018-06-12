@@ -68,6 +68,7 @@ class MeController extends Controller {
            "github"         => $github,
            "is_g_show"      => $githubShow
        ];
+
         try {
             $this->me->updateMe($array);
             rMsg('t', 'My Informations has been Uploaded With Success');

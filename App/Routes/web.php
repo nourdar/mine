@@ -26,3 +26,7 @@ $filesArray = [
 foreach ($filesArray as $key) {
     include $key.".php";
 }
+
+controller([
+    "tweets"    => "tweets"
+]);
