@@ -16,7 +16,10 @@
             </div>
         </div>
     </div>
-
+    <div class="field">
+        <label>User Group : </label>
+        <input value="{{  old('user_group', $me) }}" name="user_group">
+    </div>
     <div class="field">
         <label>Address</label>
         <div class="fields">

@@ -52,15 +52,33 @@ function pvd($array)
 function image($file)
 {
         global $imagesPath;
+
     if (file_exists($imagesPath. $file)) {
         $img = $imagesPath;
         $img .= $file;
-        echo $img;
+        return $img;
     } else {
-          echo $imagesPath.'oops.png';
+        return $imagesPath.'oops.png';
     }
 }
 
+function icon($icon, $subFolder = null)
+{
+    global $iconsPath, $imagesPath;
+    if (file_exists($iconsPath. $icon)) {
+        $img = $iconsPath;
+        $img .= $icon;
+        return $img;
+    } elseif (file_exists($iconsPath.$subFolder."/". $icon)) {
+
+        $img = $iconsPath.$subFolder."/";
+        $img .= $icon;
+        return $img;
+
+    } else {
+        return $imagesPath.'oopsssssss.png';
+    }
+}
 function url(string $url)
 {
     $mode = "test";
@@ -79,6 +97,11 @@ function me($column)
     return $me->giveMe($column);
 }
 
+function givMe($column, $model)
+{
+    $model = \Core\Factory::getModel($model);
+    return $model->giveMe($column);
+}
 function redirect($page)
 {
     if($page == "back") {

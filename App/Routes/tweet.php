@@ -14,3 +14,4 @@ get('Admin/Tweets/Add', 'Tweets@add');
  */
 
 post('Admin/Tweets/PostTweet', 'Tweets@insert');
+post('Admin/Tweets/PostComment', 'TweetsComments@insert');

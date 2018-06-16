@@ -53,6 +53,7 @@ class MeController extends Controller {
         $array = [
            "name"           => $name,
            "surname"        => $surname,
+           "user_group"     => $user_group,
            "address"        => $address,
            "birthday"       => $birthday,
            "email"          => $email,

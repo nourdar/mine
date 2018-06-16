@@ -6,29 +6,40 @@ use \Core\Controllers\Controller;
 
 class TweetsController extends Controller
 {
-
+    /**
+     * TweetsController constructor.
+     */
     public function __construct()
     {
         $this->dtb = model("Tweets\\Tweets");
-        $this->setPaginate(2);
+        $this->setPaginate(5);
     }
 
+    /**
+     * @return bool
+     */
     public function index()
     {
+        $this->getFunc('Users');
         $tweets = $this->dtb->order('id', 'DESC')->paginate(0, $this->paginate['LIMIT'])->get();
-        $comments = [];
+
         foreach ($tweets as $tweet) {
-            for ($i = 0; $i<count($tweet); $i++) {
-                $comment = $this->dtb->comments($tweet['id']);
-                if (!empty($comment)) {
-                    array_push($comments, $comment);
+            for ($i = 0; $i < count($tweet); $i++) {
+                $comments = $this->dtb->comments($tweet['id']);
+                $tweet['comments'] = $comments;
+                if ($tweet['user_group'] == "me") {
+                    $tweet['image'] = me('image');
+                } else {
+                    $tweet['image'] = randomUserIcon();
                 }
+               $i++;
             }
         }
+
         $currentPage = $this->dtb->paginate['CURRENT'];
+
         $result = [
             'tweets'      => $tweets,
-            'comments'    => $comments,
             'dtb'         => $this->dtb,
             'currentPage' => $currentPage
         ];
@@ -36,6 +47,9 @@ class TweetsController extends Controller
         return view('Admin.Tweet.show', $result);
     }
 
+    /**
+     * @param $array
+     */
     public function moreTweets($array)
     {
         extract($array);
@@ -52,23 +66,28 @@ class TweetsController extends Controller
         $currentPage = $this->dtb->paginate['CURRENT'];
         $result = [
             'tweets'      => $tweets,
-            'comments'    => $comments,
-            'dtb'         => $this->dtb,
             'currentPage' => $currentPage
         ];
               header('Content-Type: text/json');
         echo  json_encode($result);
     }
+
+    /**
+     * @return bool
+     */
     public function add()
     {
         return view('Admin.Tweet.add');
     }
 
+    /**
+     *
+     */
     public function insert()
     {
         extract($_POST);
 
-        preg_match_all("/[@$]\w+/", $tweet, $result);
+        preg_match_all("/[#$]\w+/", $tweet, $result);
 
         if (count($result[0]) > 0) {
             $count = count($result[0]);
@@ -78,9 +97,14 @@ class TweetsController extends Controller
                 }
             }
         }
+        $mail = isset($mail)? $mail : me('name');
+        $image = isset($image)? $image : me('image');
         $array = [
-          'text'    => $tweet
-        ];
+            'text'          => $tweet,
+            'user_id'    => auth('id'),
+            'image'         => $image,
+            'email'         => $mail
+            ];
 
         try {
             $this->dtb->insert($array);

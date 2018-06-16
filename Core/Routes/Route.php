@@ -183,14 +183,12 @@ class Route
     private  function controllerNamespace()
     {
         if (empty($this->controllerNamespace)) :
-            return $this->controllerNamespace = "App\Controllers\\";
+            return $this->controllerName = "App\Controllers\\".$this->controllerName;
         else :
             foreach ($this->controllerNamespace as $key => $val) {
                 $class = $val.$this->controllerName."Controller";
                 if (class_exists($class)) {
                     return $this->controllerName = $class;
-                } else {
-                    return false;
                 }
             }
         endif;

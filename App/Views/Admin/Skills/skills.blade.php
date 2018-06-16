@@ -27,8 +27,8 @@
                 </td>
                 <td>{{ $skill['created_at'] }}</td>
                 <td>
-                    @if($skill['is_show'] === 1)
-                        <div class="ui checkbox toggle">
+                    @if($skill['is_show'] == 1)
+                        <div class="ui checkbox toggle ">
                             <input type="checkbox"  checked name="{{ $skill['id'] }}" value="{{ $skill['id'] }}"/>
                         </div>
                         @else

@@ -118,7 +118,7 @@ h1 {
 button a {
     color: #fff;
 }
-float-right {
+.float-right {
     float: right !important;
 }
 
@@ -129,4 +129,8 @@ float-right {
 }
 .black {
     color:#0f0f10;
+}
+
+.blue {
+    color: #2185d0;
 }

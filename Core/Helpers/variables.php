@@ -6,3 +6,4 @@ $viewsPath = "../App/Views/";
 $jsPath = $assetsPath."js/";
 $cssPath = $assetsPath."css/";
 $imagesPath = "Store/Images/";
+$iconsPath =  "Store/Icons/";
